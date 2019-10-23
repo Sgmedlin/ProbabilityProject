@@ -1,4 +1,5 @@
 import math
+import statistics
 
 # Random Number Generator -- (Part 3)
 def get_random_number(seed):
@@ -65,6 +66,50 @@ def generate_w_realizations(number):
 
 w_output = generate_w_realizations(1000)
 
+
+lt_15 = 0
+lt_20 = 0
+lt_30 = 0
+gt_40 = 0
+sum = 0
 for w in w_output:
-    print(w)
+    sum += w
+    if w <= 15:
+        lt_15 += 1
+    if w <= 20:
+        lt_20 += 1
+    if w <= 30:
+        lt_30 += 1
+    if w > 40:
+        gt_40 += 1
+
+prob_lt_15 = lt_15 / 1000
+prob_lt_20 = lt_20 / 1000
+prob_lt_30 = lt_30 / 1000
+prob_gt_40 = gt_40 / 1000
+mean = round(statistics.mean(w_output), 4)
+median = round(statistics.median(w_output), 4)
+
+print("P[W <= 15] = " + str(prob_lt_15))
+print("P[W <= 20] = " + str(prob_lt_20))
+print("P[W <= 30] = " + str(prob_lt_30))
+print("P[W > 40] = " + str(prob_gt_40))
+print("Mean = " + str(mean))
+print("Median = " + str(median))
+
+w_sorted = sorted(w_output)
+
+w_first = []
+for i in range(0, 500):
+    w_first.append(w_sorted[i])
+
+w_second = []
+for j in range(500, 1000):
+    w_second.append(w_sorted[j])
+
+first_quartile = round(statistics.median(w_first), 4)
+third_quartile = round(statistics.median(w_second), 4)
+print("First Quartile = " + str(first_quartile))
+print("Third Quartile = " + str(third_quartile))
+
 
